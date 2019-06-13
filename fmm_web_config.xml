@@ -3,8 +3,6 @@
     <input>
         <ubodt>
             <file>output/ubodt.txt</file>
-            <nhash>65033</nhash>
-            <multiplier>39773</multiplier>
         </ubodt>
         <network>
             <file>data/stockholm/network_dual.shp</file>
