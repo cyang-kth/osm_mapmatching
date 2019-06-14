@@ -105,7 +105,7 @@ SELECT ST_LineMerge(geom),source,target FROM network.original_edges;
 
 INSERT INTO
     network.dual (geom,source,target)
-SELECT ST_Reverse(ST_LineMerge(geom)),source,target FROM network.original_edges where oneway='False';
+SELECT ST_Reverse(ST_LineMerge(geom)),target,source FROM network.original_edges where oneway='False';
 ```
 
 #### 2.3 Export the data as a shapefile
@@ -137,7 +137,7 @@ It will generate a file `ubodt.txt` under the output directory.
 
 ```
     wc -l output/ubodt.txt
-    2378225 output/ubodt.txt
+    31191071 output/ubodt.txt
 ```
 
 #### 3.2 Run the interactive demo
