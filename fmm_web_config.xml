@@ -2,7 +2,7 @@
 <fmm_config>
     <input>
         <ubodt>
-            <file>output/ubodt.txt</file>
+            <file>output/ubodt.bin</file>
         </ubodt>
         <network>
             <file>data/stockholm/network_dual.shp</file>

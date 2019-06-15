@@ -133,12 +133,14 @@ The precomputation program `ubodt_gen_omp` creates an upperbounded OD table (UBO
     ubodt_gen_omp ubodt_config.xml
 ```
 
-It will generate a file `ubodt.txt` under the output directory.
+It will generate a binary file `ubodt.bin` under the output directory.
 
 ```
-    wc -l output/ubodt.txt
-    31191071 output/ubodt.txt
+    ls -hl output/ubodt.bin
+    833MB output/ubodt.bin
 ```
+
+Here binary format is selected to increase the reading speed in fmm. 
 
 #### 3.2 Run the interactive demo
 
@@ -147,8 +149,6 @@ After the Python extension of fmm is installed, run the web demo of `fmm` using 
 ```
     python FMM_DIR/web_demo/fmm_web_app.py -c fmm_web_config.xml
 ```
-
-
 
 Visit [http://localhost:5000/demo](http://localhost:5000/demo) to open the drawing tools where you can draw a trajectory and it will be matched to the OSM, as shown below.
 
