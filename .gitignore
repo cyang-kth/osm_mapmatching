@@ -4,3 +4,7 @@ data/
 output/
 
 *.pgw
+
+# Jupyternotebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*

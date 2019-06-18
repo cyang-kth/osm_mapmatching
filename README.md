@@ -4,7 +4,17 @@
 
 <img src="img/demo1.gif" width="400"/> <img src="img/demo2.gif" width="400"/>
 
-<img src="img/demo3.gif" width="400"/> <img src="img/demo4.gif" width="400"/>
+### Content
+
+- [1. Download routable network from OSM](#1-download-routable-network-from-osm)
+- [2. Preprocess road network using PostGIS](#2-preprocess-road-network-using-postgis)
+    - [2.1 Import network into PostGIS database](#21-import-network-into-postgis-database)
+    - [2.2 Complement bidirectional edges](#22-complement-bidirectional-edges)
+    - [2.3 Export network as shapefile](#23-export-network-as-shapefile)
+- [3. Run map matching with fmm](#3-run-map-matching-with-fmm)
+    - [3.1 Preprocessing of fmm](#31-preprocessing-of-fmm)
+    - [3.2 Run web demo](#32-run-web-demo)
+    - [3.3 Run jupyter notebook](#33-run-jupyter-notebook)
 
 ### Tools used
 
@@ -50,7 +60,7 @@ Although the network shapefile contains topology information (from, to), these i
 
 The two tasks can be done in PostGIS using the following code
 
-#### 2.1 Import the network shapefile in PostGIS database
+#### 2.1 Import network into PostGIS database
 
 We use shp2pgsql for importing the shapefile into PostGIS database, run the following code in **bash shell**.
 
@@ -108,7 +118,7 @@ INSERT INTO
 SELECT ST_Reverse(ST_LineMerge(geom)),target,source FROM network.original_edges where oneway='False';
 ```
 
-#### 2.3 Export the data as a shapefile
+#### 2.3 Export network as shapefile
 
 Run the code in **bash shell**
 
@@ -124,7 +134,7 @@ You can see the difference between the original network (left) and the new netwo
 
 Install the `fmm` program in C++ and Python extension following the [instructions](https://github.com/cyang-kth/fmm/wiki/Installation).
 
-#### 3.1 Prepare configurations of fmm
+#### 3.1 Preprocessing of fmm
 
 The precomputation program `ubodt_gen_omp` creates an upperbounded OD table (UBODT) to accelerate the map matching process. Run the `ubodt_gen_omp` program in **bash shell**.
 
@@ -140,9 +150,9 @@ It will generate a binary file `ubodt.bin` under the output directory.
     833MB output/ubodt.bin
 ```
 
-Here binary format is selected to increase the reading speed in fmm. 
+Here binary format is selected to increase the reading speed in fmm.
 
-#### 3.2 Run the interactive demo
+#### 3.2 Run web demo
 
 After the Python extension of fmm is installed, run the web demo of `fmm` using the provided [configuration file](fmm_web_config.xml). More information about the configuration can be found at the [fmm wiki](https://github.com/cyang-kth/fmm/wiki/Configuration).
 
@@ -153,3 +163,9 @@ After the Python extension of fmm is installed, run the web demo of `fmm` using 
 Visit [http://localhost:5000/demo](http://localhost:5000/demo) to open the drawing tools where you can draw a trajectory and it will be matched to the OSM, as shown below.
 
 <img src="img/demo3.gif" width="400"/> <img src="img/demo4.gif" width="400"/>
+
+#### 3.3 Run jupyter notebook
+
+Check the [demo.ipynb](demo.ipynb) as an example ([ipyleaflet](https://github.com/jupyter-widgets/ipyleaflet),[shapely](https://github.com/Toblerity/Shapely) is needed.).
+
+![jupyter-demo](img/jupyter-demo.png)
