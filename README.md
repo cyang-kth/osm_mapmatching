@@ -169,3 +169,11 @@ Visit [http://localhost:5000/demo](http://localhost:5000/demo) to open the drawi
 Check the [demo.ipynb](demo.ipynb) as an example ([ipyleaflet](https://github.com/jupyter-widgets/ipyleaflet),[shapely](https://github.com/Toblerity/Shapely) is needed.).
 
 ![jupyter-demo](img/jupyter-demo.png)
+
+### Contact information 
+
+Can Yang, Ph.D. student at KTH, Royal Institute of Technology in Sweden
+
+Email: cyang(at)kth.se
+
+Homepage: https://people.kth.se/~cyang/
