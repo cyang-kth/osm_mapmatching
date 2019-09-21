@@ -154,6 +154,12 @@ Here binary format is selected to increase the reading speed in fmm.
 
 #### 3.2 Run web demo
 
+Install the dependencies with
+
+```
+pip install tornado flask numpy
+```
+
 After the Python extension of fmm is installed, run the web demo of `fmm` using the provided [configuration file](fmm_web_config.xml). More information about the configuration can be found at the [fmm wiki](https://github.com/cyang-kth/fmm/wiki/Configuration).
 
 ```
@@ -170,7 +176,7 @@ Check the [demo.ipynb](demo.ipynb) as an example ([ipyleaflet](https://github.co
 
 ![jupyter-demo](img/jupyter-demo.png)
 
-### Contact information 
+### Contact information
 
 Can Yang, Ph.D. student at KTH, Royal Institute of Technology in Sweden
 
