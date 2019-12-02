@@ -62,19 +62,24 @@ The two tasks can be done in PostGIS using the following code
 
 #### 2.1 Import network into PostGIS database
 
-We use shp2pgsql for importing the shapefile into PostGIS database, run the following code in **bash shell**.
+Before you import the shapefile into PostGIS database. You need to create a new database or use an existing one.
+Following the [instructions](http://www.postgresqltutorial.com/postgresql-create-database/). It is highly recommended to use PgAdmin3.
+
+
+We use shp2pgsql for importing the shapefile into a PostGIS database called `mm_db`, run the following code in **bash shell**.
+(You may replace the user name `postgres` and database name `mm_db` with your own settings.)
 
 ```
 # Create a schema called network
-psql -U USERNAME -d DATABASE -c "CREATE SCHEMA network;"
+psql -U postgres -d mm_db -c "CREATE SCHEMA network;"
 # Import the downloaded edges and nodes shapefile.
-shp2pgsql data/stockholm/edges/edges.shp network.original_edges | psql -U postgres -d DATABASE
-shp2pgsql data/stockholm/nodes/nodes.shp network.original_nodes | psql -U postgres -d DATABASE
+shp2pgsql data/stockholm/edges/edges.shp network.original_edges | psql -U postgres -d mm_db
+shp2pgsql data/stockholm/nodes/nodes.shp network.original_nodes | psql -U postgres -d mm_db
 ```
 
 #### 2.2 Complement bidirectional edges
 
-Execute the following commands in PostgreSQL.
+Execute the following commands in `psql` or PgAdmin. Type `psql -U postgres -d mm_db` in bash shell to open the psql.
 
 ```
 
@@ -123,7 +128,7 @@ SELECT ST_Reverse(ST_LineMerge(geom)),target,source FROM network.original_edges 
 Run the code in **bash shell**
 
 ```
-pgsql2shp -f data/stockholm/network_dual.shp -h localhost -u USERNAME -d DATABASE "SELECT gid::integer as id,source,target,geom from network.dual"
+pgsql2shp -f data/stockholm/network_dual.shp -h localhost -u postgres -d mm_db "SELECT gid::integer as id,source,target,geom from network.dual"
 ```
 
 You can see the difference between the original network (left) and the new network (right).
