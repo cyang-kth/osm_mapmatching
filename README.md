@@ -132,7 +132,7 @@ You can see the difference between the original network (left) and the new netwo
 
 ### 3. Run map matching with fmm
 
-Install the `fmm` program in C++ and Python extension following the [instructions](https://github.com/cyang-kth/fmm/wiki/Installation).
+Install the [**fmm** program](https://github.com/cyang-kth/fmm) in **C++ and Python** extension following the [instructions](https://github.com/cyang-kth/fmm/wiki).
 
 #### 3.1 Preprocessing of fmm
 
