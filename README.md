@@ -1,5 +1,8 @@
 # Map matching on OpenStreetMap, a practical tutorial
 
+This tutorial is based on the [fast map matching program](https://github.com/cyang-kth/fmm).
+It also supports road network in ESRI Shapefile. 
+
 ### Demonstration
 
 <img src="img/demo1.gif" width="400"/> <img src="img/demo2.gif" width="400"/>
