@@ -1,7 +1,7 @@
 # Map matching on OpenStreetMap, a practical tutorial
 
 This tutorial is based on the [fast map matching program](https://github.com/cyang-kth/fmm).
-It also supports road network in ESRI Shapefile. 
+It also supports road network in ESRI Shapefile.
 
 ### Demonstration
 
@@ -117,13 +117,15 @@ CREATE TABLE network.dual
 
 INSERT INTO
     network.dual (geom,source,target)
-SELECT ST_LineMerge(geom),source,target FROM network.original_edges;
+SELECT ST_LineMerge(geom),source,target FROM network.original_edges
+WHERE ST_GeometryType(ST_LineMerge(geom))='ST_LineString';
 
 -- Insert reverse edges whose oneway equals false
 
 INSERT INTO
     network.dual (geom,source,target)
-SELECT ST_Reverse(ST_LineMerge(geom)),target,source FROM network.original_edges where oneway='False';
+SELECT ST_Reverse(ST_LineMerge(geom)),target,source FROM network.original_edges
+WHERE oneway='False' AND ST_GeometryType(ST_LineMerge(geom))='ST_LineString';
 ```
 
 #### 2.3 Export network as shapefile
