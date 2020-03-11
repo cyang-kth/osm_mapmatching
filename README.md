@@ -68,9 +68,17 @@ The two tasks can be done in PostGIS using the following code
 Before you import the shapefile into PostGIS database. You need to create a new database or use an existing one.
 Following the [instructions](http://www.postgresqltutorial.com/postgresql-create-database/). It is highly recommended to use PgAdmin3.
 
+Assume that the database name is called `mm_db` by user `postgres`. (You may replace the user name `postgres` and database name `mm_db` with your own settings.)
 
-We use shp2pgsql for importing the shapefile into a PostGIS database called `mm_db`, run the following code in **bash shell**.
-(You may replace the user name `postgres` and database name `mm_db` with your own settings.)
+You need to first have `postgis` extension installed for your database. Run the following code in **bash shell**.
+
+```
+psql -U postgres -d mm_db -c "
+CREATE EXTENSION postgis IF NOT EXISTS;
+CREATE EXTENSION postgis_topology IF NOT EXISTS"
+```
+
+We use shp2pgsql for importing the shapefile into `mm_db`. Run the following code in **bash shell**.
 
 ```
 # Create a schema called network
@@ -82,10 +90,9 @@ shp2pgsql data/stockholm/nodes/nodes.shp network.original_nodes | psql -U postgr
 
 #### 2.2 Complement bidirectional edges
 
-Execute the following commands in `psql` or PgAdmin. Type `psql -U postgres -d mm_db` in bash shell to open the psql.
+**Execute the following commands in `psql` or PgAdmin**. Type `psql -U postgres -d mm_db` in bash shell to open the psql.
 
 ```
-
 -- Add two columns in the original network to store the new IDs.
 
 ALTER TABLE network.original_edges ADD COLUMN source int;
