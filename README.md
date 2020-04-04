@@ -151,13 +151,17 @@ You can see the difference between the original network (left) and the new netwo
 
 Install the [**fmm** program](https://github.com/cyang-kth/fmm) in **C++ and Python** extension following the [instructions](https://github.com/cyang-kth/fmm/wiki).
 
+
 #### 3.1 Preprocessing of fmm
 
-The precomputation program `ubodt_gen_omp` creates an upperbounded OD table (UBODT) to accelerate the map matching process. Run the `ubodt_gen_omp` program in **bash shell**.
+This step can be skipped if you are using the stmatch program, which does not need to generate
+precomputation routing results.
+
+The precomputation program `ubodt_gen` creates an upperbounded OD table (UBODT) to accelerate the map matching process. Run the `ubodt_gen` program in **bash shell**.
 
 ```
     mkdir output
-    ubodt_gen_omp ubodt_config.xml
+    ubodt_gen ubodt_config.xml
 ```
 
 It will generate a binary file `ubodt.bin` under the output directory.
@@ -171,16 +175,23 @@ Here binary format is selected to increase the reading speed in fmm.
 
 #### 3.2 Run web demo
 
-Install the dependencies with
+
+The following python web library are needed.
 
 ```
-pip install tornado flask numpy
+pip install tornado flask
 ```
 
-After the Python extension of fmm is installed, run the web demo of `fmm` using the provided [configuration file](fmm_web_config.xml). More information about the configuration can be found at the [fmm wiki](https://github.com/cyang-kth/fmm/wiki/Configuration).
+After the Python extension of fmm is installed, run the [fmm_web_app.py](https://github.com/cyang-kth/fmm/tree/master/example/web_demo) provided in the repo of
+`fmm` using the provided json configuration file [fmm_config.json](fmm_config.json).
+or [stmatch_config.json](stmatch_config.json)
 
 ```
-    python FMM_DIR/web_demo/fmm_web_app.py -c fmm_web_config.xml
+python FMM_DIR/example/web_demo/fmm_web_app.py -c fmm_config.json
+```
+
+```
+python FMM_DIR/example/web_demo/fmm_web_app.py -c stmatch_config.json
 ```
 
 Visit [http://localhost:5000/demo](http://localhost:5000/demo) to open the drawing tools where you can draw a trajectory and it will be matched to the OSM, as shown below.
@@ -191,7 +202,7 @@ Visit [http://localhost:5000/demo](http://localhost:5000/demo) to open the drawi
 
 Check the [demo.ipynb](demo.ipynb) as an example ([ipyleaflet](https://github.com/jupyter-widgets/ipyleaflet),[shapely](https://github.com/Toblerity/Shapely) is needed.).
 
-![jupyter-demo](img/jupyter-demo.png)
+![jupyter-demo](img/notebook.png)
 
 ### Contact information
 

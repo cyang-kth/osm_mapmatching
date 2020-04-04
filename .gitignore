@@ -8,3 +8,7 @@ output/
 # Jupyternotebook
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
+
+*.pyc
+
+*.DS_Store

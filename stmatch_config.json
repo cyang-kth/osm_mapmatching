@@ -1,0 +1,18 @@
+{
+  "input": {
+    "network": {
+      "file": "data/stockholm/network_dual.shp",
+      "id": "ID",
+      "source":"SOURCE",
+      "target":"TARGET"
+    }
+  },
+  "model": "stmatch",
+  "parameters": {
+    "k": 32,
+    "r": 0.01,
+    "e": 0.003,
+    "vmax":0.0003,
+    "factor":1.5
+  }
+}

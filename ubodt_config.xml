@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ubodt_config>
+<config>
     <input>
         <network>
             <file>data/stockholm/network_dual.shp</file>
@@ -14,4 +14,8 @@
     <output>
         <file>output/ubodt.bin</file>
     </output>
-</ubodt_config>
+    <other>
+      <log_level>2</log_level>
+      <use_omp/>
+    </other>
+</config>
