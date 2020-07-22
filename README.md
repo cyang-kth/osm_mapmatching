@@ -30,7 +30,9 @@ It also supports road network in ESRI Shapefile.
 
 The original osmnx saves network in an undirected way, therefore we use the script below to save the graph to a bidirectional network where all edges are directed and bidirectional edges (osm tag one-way is false) are represented by two reverse edges.
 
-<img src="img/dual.png" width="410"/>
+<div align="center">
+  <img src="img/dual.png" width="410"/>
+</div>
 
 ```python
 import osmnx as ox
