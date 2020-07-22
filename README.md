@@ -91,7 +91,9 @@ save_graph_shapefile_directional(G, filepath='stockholm')
 
 In the third manner, here is a screenshot of the network in QGIS.
 
-![Raw shapefile](img/raw_data.png)
+<div align="center">
+  <img src="img/raw_data.png" width="410"/>
+</div>
 
 ### 2. Preprocess road network using PostGIS (can be skipped)
 
