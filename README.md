@@ -15,9 +15,8 @@ It also supports road network in ESRI Shapefile.
     - [2.2 Complement bidirectional edges](#22-complement-bidirectional-edges)
     - [2.3 Export network as shapefile](#23-export-network-as-shapefile)
 - [3. Run map matching with fmm](#3-run-map-matching-with-fmm)
-    - [3.1 Preprocessing of fmm](#31-preprocessing-of-fmm)
+    - [3.1 Run python](#31-run-python)
     - [3.2 Run web demo](#32-run-web-demo)
-    - [3.3 Run jupyter notebook](#33-run-jupyter-notebook)
 
 ### Tools used
 
@@ -193,26 +192,40 @@ You can see the difference between the original network (left) and the new netwo
 
 Install the [**fmm** program](https://github.com/cyang-kth/fmm) in **C++ and Python** extension following the [instructions](https://github.com/cyang-kth/fmm/wiki).
 
-#### 3.1 Preprocessing of fmm
+#### 3.1 Run python
 
-This step can be skipped if you are using the stmatch program, which does not need to generate
-precomputation routing results.
+```python
+from fmm import FastMapMatch,Network,NetworkGraph,UBODTGenAlgorithm,UBODT,FastMapMatchConfig
 
-The precomputation program `ubodt_gen` creates an upperbounded OD table (UBODT) to accelerate the map matching process. Run the `ubodt_gen` program in **bash shell**.
+# Read network data
+# The default column names are id, source, target. Update the values in your case
+network = Network("network/edges.shp","fid","u","v")
+print "Nodes {} edges {}".format(network.get_node_count(),network.get_edge_count())
+graph = NetworkGraph(network)
 
+# Can be skipped if you already generated an ubodt file
+ubodt_gen = UBODTGenAlgorithm(network,graph)
+status = ubodt_gen.generate_ubodt("network/ubodt.txt", 0.02, binary=False, use_omp=True)
+print status
+
+# Read UBODT
+
+ubodt = UBODT.read_ubodt_csv("network/ubodt.txt")
+model = FastMapMatch(network,graph,ubodt)
+
+k = 8
+radius = 0.003
+gps_error = 0.0005
+fmm_config = FastMapMatchConfig(k,radius,gps_error)
+
+# Run map matching for wkt
+
+wkt = "LineString(104.10348 30.71363,104.10348 30.71363,104.10348 30.71363)"
+result = model.match_wkt(wkt,fmm_config)
 ```
-    mkdir output
-    ubodt_gen ubodt_config.xml
-```
 
-It will generate a binary file `ubodt.bin` under the output directory.
+Check more examples at https://github.com/cyang-kth/fmm/blob/master/example/notebook/fmm_example.ipynb.
 
-```
-    ls -hl output/ubodt.bin
-    833MB output/ubodt.bin
-```
-
-Here binary format is selected to increase the reading speed in fmm.
 
 #### 3.2 Run web demo
 
@@ -239,11 +252,6 @@ Visit [http://localhost:5000/demo](http://localhost:5000/demo) to open the drawi
 
 <img src="img/demo3.gif" width="400"/> <img src="img/demo4.gif" width="400"/>
 
-#### 3.3 Run jupyter notebook
-
-Check the [demo.ipynb](demo.ipynb) as an example ([ipyleaflet](https://github.com/jupyter-widgets/ipyleaflet),[shapely](https://github.com/Toblerity/Shapely) is needed.).
-
-![jupyter-demo](img/notebook.png)
 
 ### Contact information
 
